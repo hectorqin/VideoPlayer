@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity
     private List sourceList;
     private final String sourceFile = "source.txt";
     private JZVideoPlayerStandard mJZVideoPlayerStandard;
+    private Map<String, String> headerMap = new HashMap<String, String>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +74,10 @@ public class MainActivity extends AppCompatActivity
         mListView.setOnItemClickListener(this);
         // 避免出现返回
         mJZVideoPlayerStandard = (JZVideoPlayerStandard) findViewById(R.id.videoplayer);
-        mJZVideoPlayerStandard.setUp("", JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, "");
+        mJZVideoPlayerStandard.setUp("", JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL, "");
+
+        headerMap.put("User-Agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_12_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36");
+        mJZVideoPlayerStandard.headData = headerMap;
     }
 
     @Override
@@ -187,7 +191,8 @@ public class MainActivity extends AppCompatActivity
             mJZVideoPlayerStandard = (JZVideoPlayerStandard) findViewById(R.id.videoplayer);
         }
         mJZVideoPlayerStandard.releaseAllVideos();
-        mJZVideoPlayerStandard.setUp(url, JZVideoPlayerStandard.SCREEN_LAYOUT_NORMAL, name);
+        mJZVideoPlayerStandard.setUp(url, JZVideoPlayerStandard.SCREEN_WINDOW_NORMAL, name);
+        mJZVideoPlayerStandard.headData = headerMap;
         mJZVideoPlayerStandard.startVideo();
     }
 }
